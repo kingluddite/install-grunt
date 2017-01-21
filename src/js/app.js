@@ -16,7 +16,7 @@ var vanillaPress = {
 		router.init( );
 		view.init( );
 		editor.init( );
-
+    console.log('exactly');
 	}
 
 };

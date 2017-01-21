@@ -36,15 +36,12 @@ module.exports = function( grunt ) {
       dist: {
         src: [defaults.js],
         dest: defaults.destinations
-        //dest: 'dist/js/bundle.js'
       },
     },
 
     uglify: {
-      // what files do you want me to minify?
       dist: {
         files: {
-          //'dist/js/bundle.min.js': '<%= concat.dist.dest %>'
           'dist/js/bundle.min.js': defaults.destinations
         }
       }
@@ -61,9 +58,36 @@ module.exports = function( grunt ) {
       }
     },
 
-    watch {
-      files: [ defaults.html, defaults.sass.all, defaults.js ],
-      tasks: ['jshint', 'concat', 'uglify', 'sass']
+    watch: {
+      html: {
+        files: defaults.html
+      },
+      sass: {
+        files: defaults.sass.all,
+        tasks: ['sass']
+      },
+      js: {
+        files: defaults.js,
+        tasks: ['jshint', 'concat', 'uglify']
+      },
+      options: {
+        livereload: {
+          host: 'localhost',
+          post: 9000,
+          reload: true
+        }
+      }
+    },
+
+    connect: {
+      server: {
+        options: {
+          port: 9000,
+          hostname: 'localhost',
+          livereload: true,
+          keepalive: true
+        }
+      }
     }
 
   });
@@ -73,6 +97,7 @@ module.exports = function( grunt ) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-sass');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-contrib-connect');
 
   grunt.registerTask('default', ['watch']);
 
